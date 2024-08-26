@@ -1,0 +1,47 @@
+
+[build-system]
+requires = ["setuptools >= 61", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "text_generation"
+requires-python = ">=3.12"
+dynamic = ["version"]
+dependencies = [
+    "langchain-core >= 0.1.40",
+    "langserve[all] >= 0.0.51",
+    "langchain-cli",
+    "pydantic < 2",             
+]
+
+
+[project.optional-dependencies]
+all = [
+    
+]
+
+
+[project.scripts]
+text_generation = "text_generation.server:cmd"
+
+
+[tool.setuptools.dynamic]
+version = { attr = "text_generation.__version__" }
+
+[tool.poetry]
+name = "text_generation"
+
+
+[tool.langserve]
+export_module = "text_generation.__dev__"
+export_attr = "chain"
+
+
+[tool.pyright]
+include = ["src", "tests"]
+
+
+[tool.ruff]
+line-length = 120
+src = ["src"]
